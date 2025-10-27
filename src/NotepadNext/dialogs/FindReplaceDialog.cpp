@@ -330,6 +330,9 @@ void FindReplaceDialog::findAllInCurrentDocument()
         }
 
         const int line = editor->lineFromPosition(start);
+        if (ui->checkBoxMarkRes->isChecked()) {
+            editor->markerAdd(line, 1);
+        }
         const int lineStartPosition = editor->positionFromLine(line);
         const int lineEndPosition = editor->lineEndPosition(line);
         const int startPositionFromBeginning = start - lineStartPosition;
