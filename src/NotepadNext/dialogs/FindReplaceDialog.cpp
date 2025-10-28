@@ -20,6 +20,8 @@
 #include "FindReplaceDialog.h"
 #include "ApplicationSettings.h"
 #include "ui_FindReplaceDialog.h"
+#include "MarkerAppDecorator.h"
+#include "BookMarkDecorator.h"
 
 #include <QStatusBar>
 #include <QLineEdit>
@@ -317,6 +319,10 @@ void FindReplaceDialog::findAllInCurrentDocument()
 {
     qInfo(Q_FUNC_INFO);
 
+    qDebug() << "Editor pointer:" << editor;
+
+    BookMarkDecorator *bookMarkDecorator = editor->findChild<BookMarkDecorator*>(QString(), Qt::FindDirectChildrenOnly);
+
     bool firstMatch = true;
 
     QString text = findString();
@@ -330,8 +336,17 @@ void FindReplaceDialog::findAllInCurrentDocument()
         }
 
         const int line = editor->lineFromPosition(start);
+        qDebug() << "Found result on line " << line;
         if (ui->checkBoxMarkRes->isChecked()) {
-            editor->markerAdd(line, 1);
+            qDebug() << "Marking result at line " << line;
+            bookMarkDecorator->toggleBookmark(line);
+            auto app = qobject_cast<NotepadNextApplication*>(qApp);
+            MarkerAppDecorator *decorator = app->findChild<MarkerAppDecorator*>(QString(), Qt::FindDirectChildrenOnly);
+            if (decorator && decorator->isEnabled()) {
+                // Options: 0, 1, 2
+                int markerNumber = 1;
+                decorator->mark(editor, markerNumber);
+            }
         }
         const int lineStartPosition = editor->positionFromLine(line);
         const int lineEndPosition = editor->lineEndPosition(line);
