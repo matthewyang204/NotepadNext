@@ -340,8 +340,10 @@ void FindReplaceDialog::findAllInCurrentDocument()
         const int line = editor->lineFromPosition(start);
         qDebug() << "Found result on line " << line;
         if (ui->checkBoxMarkRes->isChecked()) {
-            qDebug() << "Marking result at line " << line;
-            bookMarkDecorator->toggleBookmark(line);
+            if (!bookMarkDecorator->isBookmarkSet(line)){
+                qDebug() << "Marking result at line " << line;
+                bookMarkDecorator->toggleBookmark(line);
+            }
             if (decorator && decorator->isEnabled()) {
                 // Options: 0, 1, 2
                 decorator->mark(editor, 1);
