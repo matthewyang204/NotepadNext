@@ -2245,4 +2245,7 @@ void MainWindow::languageMenuTriggered()
     QVariant v = act->data();
 
     setLanguage(editor, v.toString());
+
+    // Some debugging stuff
+    qDebug() << "MainWindow editor pointer:" << currentEditor();
 }
