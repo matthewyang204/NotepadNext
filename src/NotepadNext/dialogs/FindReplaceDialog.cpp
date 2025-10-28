@@ -344,8 +344,7 @@ void FindReplaceDialog::findAllInCurrentDocument()
             MarkerAppDecorator *decorator = app->findChild<MarkerAppDecorator*>(QString(), Qt::FindDirectChildrenOnly);
             if (decorator && decorator->isEnabled()) {
                 // Options: 0, 1, 2
-                int markerNumber = 1;
-                decorator->mark(editor, markerNumber);
+                decorator->mark(editor, 1);
             }
         }
         const int lineStartPosition = editor->positionFromLine(line);
