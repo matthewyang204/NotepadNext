@@ -207,6 +207,14 @@ FindReplaceDialog::FindReplaceDialog(ISearchResultsHandler *searchResults, MainW
 
         showMessage(tr("Replaced matches in %Ln files", "", count), "green");
     });
+    connect(ui->buttonClearBookmarks, &QPushButton::clicked, this, [=]() {
+        auto app = qobject_cast<NotepadNextApplication*>(qApp);
+        MarkerAppDecorator *decorator = app->findChild<MarkerAppDecorator*>(QString(), Qt::FindDirectChildrenOnly);
+        BookMarkDecorator *bookMarkDecorator = editor->findChild<BookMarkDecorator*>(QString(), Qt::FindDirectChildrenOnly);
+
+        bookMarkDecorator->clearAllBookmarks();
+        decorator->clearAll(editor);
+    });
     connect(ui->buttonClose, &QPushButton::clicked, this, &FindReplaceDialog::close);
 
     loadSettings();
@@ -522,6 +530,7 @@ void FindReplaceDialog::changeTab(int index)
         ui->buttonFindInFilesSelector->hide();
 
         ui->checkBoxMarkRes->show();
+        ui->buttonClearBookmarks->show();
         ui->buttonCount->show();
         ui->buttonFindAllInCurrent->show();
         ui->buttonFindAllInDocuments->show();
@@ -542,6 +551,7 @@ void FindReplaceDialog::changeTab(int index)
         ui->buttonFindInFilesSelector->show();
 
         ui->checkBoxMarkRes->hide();
+        ui->buttonClearBookmarks->hide();
         ui->buttonCount->hide();
         ui->buttonFindAllInCurrent->hide();
         ui->buttonFindAllInDocuments->hide();
