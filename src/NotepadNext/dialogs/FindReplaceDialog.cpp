@@ -321,6 +321,8 @@ void FindReplaceDialog::findAllInCurrentDocument()
 
     qDebug() << "Editor pointer:" << editor;
 
+    auto app = qobject_cast<NotepadNextApplication*>(qApp);
+    MarkerAppDecorator *decorator = app->findChild<MarkerAppDecorator*>(QString(), Qt::FindDirectChildrenOnly);
     BookMarkDecorator *bookMarkDecorator = editor->findChild<BookMarkDecorator*>(QString(), Qt::FindDirectChildrenOnly);
 
     bool firstMatch = true;
@@ -340,8 +342,6 @@ void FindReplaceDialog::findAllInCurrentDocument()
         if (ui->checkBoxMarkRes->isChecked()) {
             qDebug() << "Marking result at line " << line;
             bookMarkDecorator->toggleBookmark(line);
-            auto app = qobject_cast<NotepadNextApplication*>(qApp);
-            MarkerAppDecorator *decorator = app->findChild<MarkerAppDecorator*>(QString(), Qt::FindDirectChildrenOnly);
             if (decorator && decorator->isEnabled()) {
                 // Options: 0, 1, 2
                 decorator->mark(editor, 1);
