@@ -56,7 +56,7 @@ All you really need is Qt installed via Homebrew (which automatically requires t
 
 ```
 qmake ../src/NotepadNext/NotepadNext.pro -spec macx-xcode
-patch -p1 ../patches/build/darwin/0001-Fix-qt_preprocess.patch
+cat ../patches/build/darwin/0001-Fix-qt_preprocess.patch | patch -p1
 open .
 ```
 
