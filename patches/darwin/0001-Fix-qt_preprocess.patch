@@ -1,0 +1,27 @@
+From 8b20018768d45f6467ae499ef624a2f17f9f3ca1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Matthew=20Yang=20=28=E6=9D=A8=E4=BD=B3=E6=98=8E=29?=
+ <matthew.yang204@gmail.com>
+Date: Sat, 10 Jan 2026 22:10:46 -0800
+Subject: [PATCH] Fix qt_preprocess.mak
+
+---
+ NotepadNext.xcodeproj/qt_preprocess.mak | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/NotepadNext.xcodeproj/qt_preprocess.mak b/NotepadNext.xcodeproj/qt_preprocess.mak
+index fae2eb2..52a5608 100644
+--- a/NotepadNext.xcodeproj/qt_preprocess.mak
++++ b/NotepadNext.xcodeproj/qt_preprocess.mak
+@@ -79,7 +79,8 @@ compilers: LICENSE .qm/NotepadNext_cs.qm .qm/NotepadNext_de.qm .qm/NotepadNext_e
+ 	 build/ui/ui_SearchResultsDock.h
+ compiler_copy_license_make_all: LICENSE
+ LICENSE: ../LICENSE
+-	$(QINSTALL) ../LICENSE LICENSE
++	# $(QINSTALL) ../LICENSE LICENSE
++	echo "WARNING: Not building LICENSE today (haha)"
+ 
+ compiler_lrelease_make_all: .qm/NotepadNext_cs.qm .qm/NotepadNext_de.qm .qm/NotepadNext_es.qm .qm/NotepadNext_it.qm .qm/NotepadNext_pl.qm .qm/NotepadNext_pt_BR.qm .qm/NotepadNext_pt_PT.qm .qm/NotepadNext_ru.qm .qm/NotepadNext_sv.qm .qm/NotepadNext_tr.qm .qm/NotepadNext_uk.qm .qm/NotepadNext_zh_CN.qm .qm/NotepadNext_zh_TW.qm .qm/qt_cs.qm .qm/qtbase_cs.qm .qm/qt_de.qm .qm/qtbase_de.qm .qm/qt_es.qm .qm/qtbase_es.qm .qm/qt_it.qm .qm/qtbase_it.qm .qm/qt_pl.qm .qm/qtbase_pl.qm .qm/qt_pt_BR.qm .qm/qtbase_pt_BR.qm .qm/qt_pt_PT.qm .qm/qt_ru.qm .qm/qtbase_ru.qm .qm/qt_sv.qm .qm/qtbase_sv.qm .qm/qt_tr.qm .qm/qtbase_tr.qm .qm/qt_uk.qm .qm/qtbase_uk.qm .qm/qt_zh_CN.qm .qm/qtbase_zh_CN.qm .qm/qt_zh_TW.qm .qm/qtbase_zh_TW.qm
+ compiler_lrelease_clean:
+-- 
+2.52.0
+
