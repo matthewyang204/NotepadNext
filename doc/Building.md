@@ -49,3 +49,15 @@ cd build
 qmake ../src/NotepadNext.pro
 make -j$(nproc)
 ```
+
+# macOS
+
+All you really need is Qt installed via Homebrew (which automatically requires the Xcode Commandline Tools, which bundles Git) and a working copy of Xcode for your macOS version, and then you can pretty much follow the Linux steps after `apt` and up till `qmake`. Afterwards:
+
+```
+qmake ../src/NotepadNext/NotepadNext.pro -spec macx-xcode
+patch -p1 ../patches/build/darwin/0001-Fix-qt_preprocess.patch
+open .
+```
+
+And then open up the Xcode project in Xcode, and build. We need Xcode for granular CPU architecture control. For example, if it throws an error about a missing architecture, and you're not building for release, then all you need to do is remove the other architecture that is not your host architecture (if Apple Silicon, then remove x86_64, and if Intel, remove arm64, etc) in the build settings.
