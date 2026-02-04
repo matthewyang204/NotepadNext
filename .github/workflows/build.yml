@@ -149,37 +149,37 @@ jobs:
 
       - name: Create Draft Release
         run: |
-          gh release create ${{ github.ref_name }} --title ${{ github.ref_name }} --generate-notes --draft
+          gh release create v0.13 --title v0.13 --generate-notes --draft
 
       - name: Download all artifacts
         uses: actions/download-artifact@v7
 
       - name: Upload Windows Installer
         run: |
-          gh release upload ${{ github.ref_name }} NotepadNext-Windows-Qt$QT_RELEASE_VER-Installer/NotepadNext-${{ github.ref_name }}-Installer.exe
+          gh release upload v0.13 NotepadNext-Windows-Qt$QT_RELEASE_VER-Installer/NotepadNext-v0.13-Installer.exe
 
       # The artifact is unzipped, so need to zip it back up so it can be uploaded
       - name: Upload Windows Zip
         run: |
           cd NotepadNext-Windows-Qt$QT_RELEASE_VER-Zip/
-          zip -r ../NotepadNext-${{ github.ref_name }}-win64.zip .
+          zip -r ../NotepadNext-v0.13-win64.zip .
           cd ..
-          gh release upload ${{ github.ref_name }} NotepadNext-${{ github.ref_name }}-win64.zip
+          gh release upload v0.13 NotepadNext-v0.13-win64.zip
 
       - name: Upload Linux AppImage
         run: |
-          gh release upload ${{ github.ref_name }} NotepadNext-Linux-Qt$QT_RELEASE_VER-AppImage/NotepadNext-${{ github.ref_name }}-x86_64.AppImage
+          gh release upload v0.13 NotepadNext-Linux-Qt$QT_RELEASE_VER-AppImage/NotepadNext-v0.13-x86_64.AppImage
 
       - name: Upload macOS App
         run: |
-          gh release upload ${{ github.ref_name }} NotepadNext-macOS-Qt$QT_RELEASE_VER/NotepadNext-${{ github.ref_name }}.dmg
+          gh release upload v0.13 NotepadNext-macOS-Qt$QT_RELEASE_VER/NotepadNext-v0.13.dmg
 
       - name: Create Source Tarball
         run: |
-              export PACKAGE_NAME=NotepadNext-${{ github.ref_name }}
+              export PACKAGE_NAME=NotepadNext-v0.13
               export RELEASE_TARBALL=${PACKAGE_NAME}.tar.gz
               git ls-files --recurse-submodules | tar caf ${RELEASE_TARBALL} --xform s:^:${PACKAGE_NAME}/: --verbatim-files-from -T-
 
       - name: Upload Source Tarball
         run: |
-          gh release upload ${{ github.ref_name }} NotepadNext-${{ github.ref_name }}.tar.gz
+          gh release upload v0.13 NotepadNext-v0.13.tar.gz
